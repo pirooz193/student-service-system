@@ -17,12 +17,9 @@ public class Teacher {
     private String fullName;
     @Column(name = "image_url", nullable = false , length = 100)
     private String imageUrl;
-    @Column(name = "academic_field", nullable = false , length = 30)
-    private String academicField;
     @ManyToOne
     private Faculty faculty;
-    @OneToMany(mappedBy = "comment" , fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher")
+    @OneToMany( fetch = FetchType.EAGER)
     private List<Comment> comments;
     @ManyToMany
     private List<Lesson> lessons;
@@ -37,12 +34,17 @@ public class Teacher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Teacher teacher = (Teacher) o;
-        return id == teacher.id && fullName.equals(teacher.fullName) && imageUrl.equals(teacher.imageUrl) && academicField.equals(teacher.academicField) && faculty.equals(teacher.faculty) && comments.equals(teacher.comments) && lessons.equals(teacher.lessons);
+        return fullName.equals(teacher.fullName) && imageUrl.equals(teacher.imageUrl) &&  faculty.equals(teacher.faculty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, imageUrl, academicField, faculty, comments, lessons);
+        return Objects.hash(id, fullName, imageUrl, faculty, comments, lessons);
+    }
+
+    public Teacher(String fullName, String imageUrl) {
+        this.fullName = fullName;
+        this.imageUrl = "https://shahroodut.ac.ir/fa"+imageUrl;
     }
 
     @Override
@@ -51,7 +53,6 @@ public class Teacher {
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", academicField='" + academicField + '\'' +
                 ", faculty=" + faculty +
                 ", comments=" + comments +
                 ", lessons=" + lessons +
@@ -80,14 +81,6 @@ public class Teacher {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getAcademicField() {
-        return academicField;
-    }
-
-    public void setAcademicField(String academicField) {
-        this.academicField = academicField;
     }
 
     public Faculty getFaculty() {
