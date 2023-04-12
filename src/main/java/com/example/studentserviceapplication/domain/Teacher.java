@@ -13,12 +13,10 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "full_name", nullable = false , length = 30)
+    @Column(name = "full_name", nullable = false, length = 60)
     private String fullName;
     @Column(name = "image_url", nullable = false , length = 100)
     private String imageUrl;
-    @ManyToOne
-    private Faculty faculty;
     @OneToMany( fetch = FetchType.EAGER)
     private List<Comment> comments;
     @ManyToMany
@@ -34,12 +32,12 @@ public class Teacher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Teacher teacher = (Teacher) o;
-        return fullName.equals(teacher.fullName) && imageUrl.equals(teacher.imageUrl) &&  faculty.equals(teacher.faculty);
+        return fullName.equals(teacher.fullName) && imageUrl.equals(teacher.imageUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, imageUrl, faculty, comments, lessons);
+        return Objects.hash(id, fullName, imageUrl, comments, lessons);
     }
 
     public Teacher(String fullName, String imageUrl) {
@@ -53,7 +51,6 @@ public class Teacher {
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", faculty=" + faculty +
                 ", comments=" + comments +
                 ", lessons=" + lessons +
                 '}';
@@ -81,14 +78,6 @@ public class Teacher {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
     }
 
     public List<Comment> getComments() {

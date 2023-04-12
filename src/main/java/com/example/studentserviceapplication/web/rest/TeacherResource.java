@@ -1,7 +1,6 @@
 package com.example.studentserviceapplication.web.rest;
 
 
-import com.example.studentserviceapplication.domain.Teacher;
 import com.example.studentserviceapplication.service.TeacherService;
 import com.example.studentserviceapplication.service.dto.TeacherDTO;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +27,19 @@ public class TeacherResource {
       return ResponseEntity.ok().body(teacherDTO) ;
     }
 
-    @GetMapping("/all-teachers")
+    @GetMapping("all-teachers")
     public ResponseEntity<List<TeacherDTO>> getAllTeachers (){
         List<TeacherDTO> teacherDTOS = teacherService.getAllTeachers();
         return ResponseEntity.ok().body(teacherDTOS) ;
     }
 
-//    @GetMapping("/all-teachers-from-web")
-//    public ResponseEntity<List<Teacher>> getAllTeachersFromWeb (){
-//        List<Teacher> teacherDTOS = teacherService.getAllTeachersFromWeb();
-//        return ResponseEntity.ok().body(teacherDTOS) ;
-//    }
+/*    @GetMapping("/all-teachers-from-web")
+    public ResponseEntity<List<Teacher>> getAllTeachersFromWeb (){
+        List<Teacher> teacherDTOS = teacherService.getAllTeachersFromWeb();
+        return ResponseEntity.ok().body(teacherDTOS) ;
+    }*/
 
-    @GetMapping("/detect-swear-words")
+    @GetMapping("detect-swear-words")
      public ResponseEntity<List<TeacherDTO>> detectSwearWords (){
         List<TeacherDTO> teacherDTOS = teacherService.getAllTeachers();
         return ResponseEntity.ok().body(teacherDTOS) ;
