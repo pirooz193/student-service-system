@@ -1,20 +1,13 @@
 package com.example.studentserviceapplication.service.impl;
 
-import com.example.studentserviceapplication.domain.Faculty;
 import com.example.studentserviceapplication.domain.Teacher;
-import com.example.studentserviceapplication.domain.enumuration.Faculties;
 import com.example.studentserviceapplication.repository.FacultyRepository;
 import com.example.studentserviceapplication.repository.TeacherRepository;
 import com.example.studentserviceapplication.service.FacultyService;
 import com.example.studentserviceapplication.service.TeacherService;
 import com.example.studentserviceapplication.service.dto.TeacherDTO;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -42,10 +35,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<Teacher> getAllTeachersFromWeb() {
-        for (int i = 0; i < Faculties.values().length; i++) {
+        /*for (int i = 0; i < Faculties.values().length; i++) {
             Faculties faculty = Faculties.values()[i];
             try {
-                String requiredFacultyUrl = "https://shahroodut.ac.ir/fa/schools/index.php?id=S" + faculty.getFacultyCode();/*faculties.get(1).attr("href") ;*/
+                String requiredFacultyUrl = "https://shahroodut.ac.ir/fa/schools/index.php?id=S" + faculty.getFacultyCode();*//*faculties.get(1).attr("href") ;*//*
                 Document requiredFacultyDoc = Jsoup.connect(requiredFacultyUrl).get();
                 Elements requiredTeachersPart = requiredFacultyDoc.select(".nav").select("ul").select("ul").select("li");
                 for (int j = 0; j < 20; j++) {
@@ -74,6 +67,7 @@ public class TeacherServiceImpl implements TeacherService {
                 e.printStackTrace();
             }
         }
-        return  teacherRepository.findAll();
+        return  teacherRepository.findAll();*/
+        return null;
     }
 }
