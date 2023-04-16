@@ -12,6 +12,8 @@ public class FacultyDTO {
     private String title;
     @JsonProperty(value = "code")
     private String code;
+    @JsonProperty(value = "title_fa")
+    private String persianTitle;
     @JsonProperty(value = "teachers")
     private Set<TeacherDTO> teachers;
 
@@ -20,6 +22,7 @@ public class FacultyDTO {
         return "FacultyDTO{" +
                 "title='" + title + '\'' +
                 ", code='" + code + '\'' +
+                ", persianTitle='" + persianTitle + '\'' +
                 ", teachers=" + teachers +
                 '}';
     }
@@ -46,5 +49,13 @@ public class FacultyDTO {
 
     public void setTeachers(Set<TeacherDTO> teachers) {
         this.teachers = teachers;
+    }
+
+    public String getPersianTitle() {
+        return persianTitle;
+    }
+
+    public void setPersianTitle(String persianTitle) {
+        this.persianTitle = persianTitle;
     }
 }
