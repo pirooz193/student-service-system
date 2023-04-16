@@ -1,12 +1,15 @@
 package com.example.studentserviceapplication.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "faculty")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Faculty {
 
     @Id
@@ -18,7 +21,9 @@ public class Faculty {
     private String code;
     @Column(name = "title_fa", nullable = false, length = 30)
     private String persianTitle;
-    @OneToMany(cascade = CascadeType.PERSIST)
+
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Teacher> teachers;
 
     @Override
