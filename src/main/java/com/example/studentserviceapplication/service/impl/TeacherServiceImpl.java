@@ -6,19 +6,24 @@ import com.example.studentserviceapplication.repository.TeacherRepository;
 import com.example.studentserviceapplication.service.FacultyService;
 import com.example.studentserviceapplication.service.TeacherService;
 import com.example.studentserviceapplication.service.dto.TeacherDTO;
+import com.example.studentserviceapplication.service.mapper.TeacherMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private final TeacherMapper teacherMapper;
     private final FacultyService facultyService;
     private final FacultyRepository facultyRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository, FacultyService facultyService, FacultyRepository facultyRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper teacherMapper, FacultyService facultyService, FacultyRepository facultyRepository) {
         this.teacherRepository = teacherRepository;
+        this.teacherMapper = teacherMapper;
         this.facultyService = facultyService;
         this.facultyRepository = facultyRepository;
     }
@@ -28,9 +33,10 @@ public class TeacherServiceImpl implements TeacherService {
         return null;
     }
 
+    @Cacheable("teachers")
     @Override
     public List<TeacherDTO> getAllTeachers() {
-        return null;
+        return teacherRepository.findAll().stream().map(teacherMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
