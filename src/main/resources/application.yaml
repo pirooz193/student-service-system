@@ -8,6 +8,11 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
+      cach:
+        use_second_level_cache: true
+        region:
+          factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+        use_query_cach: true
 
     show-sql: true
 

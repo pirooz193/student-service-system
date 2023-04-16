@@ -5,6 +5,7 @@ import com.example.studentserviceapplication.repository.FacultyRepository;
 import com.example.studentserviceapplication.service.FacultyService;
 import com.example.studentserviceapplication.service.dto.FacultyDTO;
 import com.example.studentserviceapplication.service.mapper.FacultyMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyMapper.toDTO(faculty);
     }
 
+    @Cacheable("faculties")
     @Override
     public List<Faculty> getAll() {
         return facultyRepository.findAll();
