@@ -16,6 +16,8 @@ public class Faculty {
     private String title;
     @Column(name = "code", nullable = false, length = 10)
     private String code;
+    @Column(name = "title_fa", nullable = false, length = 30)
+    private String persianTitle;
     @OneToMany(cascade = CascadeType.PERSIST)
     private Set<Teacher> teachers;
 
@@ -38,6 +40,7 @@ public class Faculty {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", code='" + code + '\'' +
+                ", persianTitle='" + persianTitle + '\'' +
                 ", teachers=" + teachers +
                 '}';
     }
@@ -72,5 +75,13 @@ public class Faculty {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public String getPersianTitle() {
+        return persianTitle;
+    }
+
+    public void setPersianTitle(String persianTitle) {
+        this.persianTitle = persianTitle;
     }
 }
