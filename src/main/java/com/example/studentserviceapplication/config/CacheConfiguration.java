@@ -14,10 +14,6 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
-//    @Bean
-//    public CacheManager cacheManager() {
-//        return new ConcurrentMapCacheManager("facultiesCache");
-//    }
 
     @Bean
     public CacheManager cacheManager() {
