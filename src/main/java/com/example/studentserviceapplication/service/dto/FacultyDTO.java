@@ -8,6 +8,8 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FacultyDTO {
 
+    @JsonProperty("id")
+    private long id;
     @JsonProperty(value = "title")
     private String title;
     @JsonProperty(value = "code")
@@ -20,11 +22,20 @@ public class FacultyDTO {
     @Override
     public String toString() {
         return "FacultyDTO{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", code='" + code + '\'' +
                 ", persianTitle='" + persianTitle + '\'' +
                 ", teachers=" + teachers +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {

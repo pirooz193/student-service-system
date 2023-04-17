@@ -17,7 +17,7 @@ public class Teacher {
     private String fullName;
     @Column(name = "image_url", nullable = false , length = 100)
     private String imageUrl;
-    @OneToMany( fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Comment> comments;
     @ManyToMany
     private List<Lesson> lessons;
