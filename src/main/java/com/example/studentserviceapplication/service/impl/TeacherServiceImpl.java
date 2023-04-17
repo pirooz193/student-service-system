@@ -1,16 +1,16 @@
 package com.example.studentserviceapplication.service.impl;
 
 import com.example.studentserviceapplication.domain.Teacher;
-import com.example.studentserviceapplication.repository.FacultyRepository;
 import com.example.studentserviceapplication.repository.TeacherRepository;
-import com.example.studentserviceapplication.service.FacultyService;
 import com.example.studentserviceapplication.service.TeacherService;
 import com.example.studentserviceapplication.service.dto.TeacherDTO;
 import com.example.studentserviceapplication.service.mapper.TeacherMapper;
+import com.example.studentserviceapplication.web.error.NotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,19 +18,18 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
     private final TeacherMapper teacherMapper;
-    private final FacultyService facultyService;
-    private final FacultyRepository facultyRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper teacherMapper, FacultyService facultyService, FacultyRepository facultyRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper teacherMapper) {
         this.teacherRepository = teacherRepository;
         this.teacherMapper = teacherMapper;
-        this.facultyService = facultyService;
-        this.facultyRepository = facultyRepository;
     }
 
     @Override
     public TeacherDTO getTeacherById(long id) {
-        return null;
+        Optional<Teacher> requiredTeacher = teacherRepository.findById(id);
+        if (requiredTeacher.isPresent()) {
+            return teacherMapper.toDTO(requiredTeacher.get());
+        } else throw new NotFoundException(String.valueOf(id));
     }
 
     @Cacheable("teachers")
@@ -75,5 +74,11 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return  teacherRepository.findAll();*/
         return null;
+    }
+
+    @Override
+    public TeacherDTO save(TeacherDTO teacherDTO) {
+        Teacher teacher = teacherMapper.toEntity(teacherDTO);
+        return teacherMapper.toDTO(teacherRepository.save(teacher));
     }
 }
