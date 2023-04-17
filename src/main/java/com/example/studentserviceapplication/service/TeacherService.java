@@ -11,4 +11,6 @@ public interface TeacherService {
     List<TeacherDTO> getAllTeachers();
 
     List<Teacher> getAllTeachersFromWeb();
+
+    TeacherDTO save(TeacherDTO teacher);
 }
