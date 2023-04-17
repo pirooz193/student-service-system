@@ -1,9 +1,32 @@
 package com.example.studentserviceapplication.web.rest;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.studentserviceapplication.service.CommentService;
+import com.example.studentserviceapplication.service.dto.CommentDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/comment/")
+@RequestMapping("/api/comment")
 public class CommentResource {
+    private final CommentService commentService;
+
+    public CommentResource(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    @PostMapping("/save-comment")
+    public ResponseEntity<CommentDTO> saveComment(@RequestParam long teacherId, @RequestBody CommentDTO commentDTO) throws URISyntaxException {
+        CommentDTO savedComment = commentService.saveComment(teacherId, commentDTO);
+        return ResponseEntity.created(new URI("/api/comment/save-comment")).body(savedComment);
+    }
+
+    @GetMapping("/{teacherId}")
+    public ResponseEntity<List<CommentDTO>> getRequiredTeacherComments(@PathVariable String teacherId) {
+        List<CommentDTO> comments = commentService.getRequiredTeacherComments(teacherId);
+        return ResponseEntity.ok().body(comments);
+    }
 }
