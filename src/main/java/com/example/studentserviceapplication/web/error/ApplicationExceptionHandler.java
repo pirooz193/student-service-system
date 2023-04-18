@@ -11,11 +11,11 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail translateException(Exception exception) {
-        ProblemDetail problemDetail = null;
+        ProblemDetail problemDetail;
         if (exception instanceof HttpClientErrorException) {
             problemDetail = ProblemDetail.forStatusAndDetail(((HttpClientErrorException) exception).getStatusCode(), exception.getMessage());
         } else {
-            ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Action failed");
+            problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Action failed");
         }
         return problemDetail;
     }
