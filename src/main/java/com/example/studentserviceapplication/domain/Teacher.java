@@ -15,12 +15,16 @@ public class Teacher {
     private long id;
     @Column(name = "full_name", nullable = false, length = 60)
     private String fullName;
-    @Column(name = "image_url", nullable = false , length = 100)
+    @Column(name = "image_url", nullable = false, length = 100)
     private String imageUrl;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Comment> comments;
     @ManyToMany
     private List<Lesson> lessons;
+
+    public Teacher(long id) {
+        this.id = id;
+    }
 
     public Teacher() {
         comments = new ArrayList<>();
