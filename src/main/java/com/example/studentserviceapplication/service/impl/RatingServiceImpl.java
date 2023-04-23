@@ -26,4 +26,10 @@ public class RatingServiceImpl implements RatingService {
     public double calculateAverageRating(Long teacherId) {
         return ratingRepository.findAverageRatingByTeacherId(teacherId);
     }
+
+    @Override
+    public Rating saveRating(String userId, Long teacherId, int score) {
+//        return ratingRepository.save(rating);
+        return null;
+    }
 }
