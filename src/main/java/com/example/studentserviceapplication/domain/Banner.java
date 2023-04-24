@@ -14,6 +14,7 @@ public class Banner {
     private Long id;
     @Column(name = "image_url", nullable = false, length = 300)
     private String imageUrl;
+    @Enumerated(EnumType.STRING)
     @Column(name = "panel_type", nullable = false, length = 20)
     private PanelType panelType;
 
