@@ -2,6 +2,7 @@ package com.example.studentserviceapplication.web.rest;
 
 import com.example.studentserviceapplication.domain.Banner;
 import com.example.studentserviceapplication.service.BannerService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class BannerResource {
         this.bannerService = bannerService;
     }
 
-    @GetMapping("/slider/{panelType}")
+    @GetMapping(value = "/slider/{panelType}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Banner>> getBanners(@PathVariable String panelType) {
         List<Banner> banner = bannerService.getPanelBanners(panelType);
         return ResponseEntity.ok().body(banner);
