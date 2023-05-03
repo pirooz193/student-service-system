@@ -1,7 +1,8 @@
 package com.example.studentserviceapplication.web.error;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
@@ -10,13 +11,21 @@ import org.springframework.web.client.HttpClientErrorException;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ProblemDetail translateException(Exception exception) {
-        ProblemDetail problemDetail = null;
+    public ResponseEntity<ExceptionResponse> translateException(Exception exception) {
+
         if (exception instanceof HttpClientErrorException) {
-            problemDetail = ProblemDetail.forStatusAndDetail(((HttpClientErrorException) exception).getStatusCode(), exception.getMessage());
+            return ResponseEntity.status(((HttpClientErrorException) exception).getStatusCode()).body(new ExceptionResponse(
+                    exception.getCause().getMessage(),
+                    ((HttpClientErrorException) exception).getStatusCode().value(),
+                    exception.getMessage()
+            ));
+        } else if (exception instanceof HttpRequestMethodNotSupportedException) {
+            return ResponseEntity.status(((HttpRequestMethodNotSupportedException) exception).getStatusCode()).body(new ExceptionResponse(
+                    exception.getCause().getMessage(),
+                    ((HttpRequestMethodNotSupportedException) exception).getStatusCode().value(),
+                    exception.getMessage()));
         } else {
-            ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Action failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(new ExceptionResponse());
         }
-        return problemDetail;
     }
 }
