@@ -28,6 +28,12 @@ public class ExceptionResponse {
         this.message = "Unfortunately action failed";
     }
 
+    public ExceptionResponse(String message) {
+        this.title = HttpStatus.INTERNAL_SERVER_ERROR.toString();
+        this.statusCode = 500;
+        this.message = message;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
