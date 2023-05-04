@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
         TeacherDTO teacher = teacherService.getTeacherById(teacherId);
         teacher.getComments().add(commentDTO);
         teacherService.save(teacher);
-        return commentMapper.toDTO(commentRepository.save(commentMapper.toEntity(commentDTO)));
+        return commentDTO;
 
     }
 

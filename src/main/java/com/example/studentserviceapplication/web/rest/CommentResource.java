@@ -18,8 +18,8 @@ public class CommentResource {
         this.commentService = commentService;
     }
 
-    @PostMapping("/save-comment")
-    public ResponseEntity<CommentDTO> saveComment(@RequestParam long teacherId, @RequestBody CommentDTO commentDTO) throws URISyntaxException {
+    @PostMapping("/save-comment/{teacherId}")
+    public ResponseEntity<CommentDTO> saveComment(@PathVariable long teacherId, @RequestBody CommentDTO commentDTO) throws URISyntaxException {
         CommentDTO savedComment = commentService.saveComment(teacherId, commentDTO);
         return ResponseEntity.created(new URI("/api/comment/save-comment")).body(savedComment);
     }
