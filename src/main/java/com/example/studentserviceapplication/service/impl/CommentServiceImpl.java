@@ -9,7 +9,7 @@ import com.example.studentserviceapplication.service.mapper.CommentMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -29,15 +29,15 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setDateTime(LocalDateTime.now());
         TeacherDTO teacher = teacherService.getTeacherById(teacherId);
         teacher.getComments().add(commentDTO);
+        teacher.setRate(teacher.getComments().stream().mapToDouble(CommentDTO::getScore).sum() / teacher.getComments().size());
         teacherService.save(teacher);
         return commentDTO;
 
     }
 
     @Override
-    public List<CommentDTO> getRequiredTeacherComments(String teacherId) {
+    public Set<CommentDTO> getRequiredTeacherComments(String teacherId) {
         TeacherDTO teacher = teacherService.getTeacherById(Long.parseLong(teacherId));
-
         return teacher.getComments();
     }
 }
