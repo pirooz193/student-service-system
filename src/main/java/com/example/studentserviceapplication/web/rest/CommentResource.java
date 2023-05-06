@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -25,8 +25,8 @@ public class CommentResource {
     }
 
     @GetMapping("/{teacherId}")
-    public ResponseEntity<List<CommentDTO>> getRequiredTeacherComments(@PathVariable String teacherId) {
-        List<CommentDTO> comments = commentService.getRequiredTeacherComments(teacherId);
+    public ResponseEntity<Set<CommentDTO>> getRequiredTeacherComments(@PathVariable String teacherId) {
+        Set<CommentDTO> comments = commentService.getRequiredTeacherComments(teacherId);
         return ResponseEntity.ok().body(comments);
     }
 }
