@@ -32,4 +32,9 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Faculty> getAll() {
         return facultyRepository.findAll();
     }
+
+    @Override
+    public Faculty save(Faculty teacherFaculty) {
+        return facultyRepository.save(teacherFaculty);
+    }
 }
