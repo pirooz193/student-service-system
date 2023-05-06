@@ -2,10 +2,10 @@ package com.example.studentserviceapplication.service;
 
 import com.example.studentserviceapplication.service.dto.CommentDTO;
 
-import java.util.List;
+import java.util.Set;
 
 public interface CommentService {
     CommentDTO saveComment(long teacherId, CommentDTO commentDTO);
 
-    List<CommentDTO> getRequiredTeacherComments(String teacherId);
+    Set<CommentDTO> getRequiredTeacherComments(String teacherId);
 }

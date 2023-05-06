@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -25,9 +26,9 @@ public class FoodResource {
         return ResponseEntity.ok().body(foods);
     }
 
-//    @GetMapping("/get-food-from-web")
-//    public ResponseEntity<void> getAllFoodsFromWeb() throws InterruptedException {
-//       foodService.getAllFoodsFromWeb();
+    @GetMapping("/get-food-from-web")
+    public void getAllFoodsFromWeb() throws InterruptedException, MalformedURLException {
+        foodService.getAllFoodsFromWeb();
 //        return ResponseEntity.ok();
-//    }
+    }
 }

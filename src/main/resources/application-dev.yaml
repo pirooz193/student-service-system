@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/survey
+    username:
+    password:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      cache:
+        use_second_level_cache: true
+        region:
+          factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+        use_query_cache: true
+
+    show-sql: true
+application:
+  web:
+    self:
+      address: https://self.shahroodut.ac.ir/identity/login
+      username:
+      password:
+
+server:
+  port: 8081
+#  address: 127.0.0.1

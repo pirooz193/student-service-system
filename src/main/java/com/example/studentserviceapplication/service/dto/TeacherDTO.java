@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TeacherDTO {
@@ -15,8 +17,10 @@ public class TeacherDTO {
     private String fullName;
     @JsonProperty("image_url")
     private String imageUrl;
+    @JsonProperty("rate")
+    private double rate;
     @JsonProperty("comments")
-    private List<CommentDTO> comments = new ArrayList<>();
+    private Set<CommentDTO> comments = new HashSet<>();
     @JsonProperty("lessons")
     private List<Lesson> lessons = new ArrayList<>();
 
@@ -26,6 +30,7 @@ public class TeacherDTO {
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", rate=" + rate +
                 ", comments=" + comments +
                 ", lessons=" + lessons +
                 '}';
@@ -55,11 +60,19 @@ public class TeacherDTO {
         this.imageUrl = imageUrl;
     }
 
-    public List<CommentDTO> getComments() {
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public Set<CommentDTO> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(Set<CommentDTO> comments) {
         this.comments = comments;
     }
 

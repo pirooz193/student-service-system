@@ -2,9 +2,7 @@ package com.example.studentserviceapplication.domain;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "teacher_table")
@@ -17,8 +15,10 @@ public class Teacher {
     private String fullName;
     @Column(name = "image_url", nullable = false, length = 100)
     private String imageUrl;
+    @Column(name = "rate", nullable = false, length = 5, columnDefinition = "DOUBLE DEFAULT 0.0")
+    private Double rate;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    private Set<Comment> comments;
     @ManyToMany
     private List<Lesson> lessons;
 
@@ -27,7 +27,7 @@ public class Teacher {
     }
 
     public Teacher() {
-        comments = new ArrayList<>();
+        comments = new HashSet<>();
         lessons = new ArrayList<>();
     }
 
@@ -55,6 +55,7 @@ public class Teacher {
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", rate=" + rate +
                 ", comments=" + comments +
                 ", lessons=" + lessons +
                 '}';
@@ -84,11 +85,19 @@ public class Teacher {
         this.imageUrl = imageUrl;
     }
 
-    public List<Comment> getComments() {
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
