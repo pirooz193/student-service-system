@@ -23,13 +23,13 @@ public class CacheConfiguration {
         ConcurrentMapCache facultiesCache = new ConcurrentMapCache("faculties",
                 CacheBuilder.newBuilder()
                         .maximumSize(1000)
-                        .expireAfterWrite(10, TimeUnit.MINUTES)
+                        .expireAfterWrite(30, TimeUnit.DAYS)
                         .build().asMap(),
                 false);
         ConcurrentMapCache teachersCache = new ConcurrentMapCache("teachers",
                 CacheBuilder.newBuilder()
                         .maximumSize(1000)
-                        .expireAfterWrite(10, TimeUnit.MINUTES)
+                        .expireAfterWrite(10, TimeUnit.DAYS)
                         .build().asMap(),
                 false);
 
