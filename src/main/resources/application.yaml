@@ -15,6 +15,17 @@ spring:
         use_query_cache: true
 
     show-sql: true
-
+logging:
+  level:
+    com:
+      example:
+        studentserviceapplication: DEBUG
+    root: info
+application:
+  web:
+    self:
+      address: https://self.shahroodut.ac.ir/identity/login
+      username: 9718223
+      password: Az@r1234
 server:
   port: 8081
