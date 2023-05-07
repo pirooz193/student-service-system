@@ -5,6 +5,7 @@ import com.example.studentserviceapplication.repository.FacultyRepository;
 import com.example.studentserviceapplication.service.FacultyService;
 import com.example.studentserviceapplication.service.dto.FacultyDTO;
 import com.example.studentserviceapplication.service.mapper.FacultyMapper;
+import com.example.studentserviceapplication.web.error.NotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,12 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public FacultyDTO getFacultyByCode(String facultyCode) {
-        Faculty faculty = facultyRepository.getFacultyByCode(facultyCode);
-        return facultyMapper.toDTO(faculty);
+        if (facultyRepository.getFacultyByCode(facultyCode).isEmpty()) {
+            throw new NotFoundException("Faculty with required code {" + facultyCode + "}");
+        } else {
+            Faculty faculty = facultyRepository.getFacultyByCode(facultyCode).get();
+            return facultyMapper.toDTO(faculty);
+        }
     }
 
     @Cacheable("faculties")
