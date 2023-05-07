@@ -11,7 +11,7 @@ public class ExceptionResponse {
     @JsonProperty(namespace = "title")
     private String title;
     @JsonProperty(namespace = "status_code")
-    private int statusCode;
+    private Integer statusCode;
     @JsonProperty(namespace = "message")
 
     private String message;
@@ -19,7 +19,7 @@ public class ExceptionResponse {
     public ExceptionResponse(String title, int statusCode, String message) {
         this.title = title;
         this.statusCode = statusCode;
-        this.message = message;
+        this.message = "Caused by : " + message;
     }
 
     public ExceptionResponse() {
@@ -29,8 +29,11 @@ public class ExceptionResponse {
     }
 
     public ExceptionResponse(String message) {
-        this.title = HttpStatus.INTERNAL_SERVER_ERROR.toString();
-        this.statusCode = 500;
+        this.message = message;
+    }
+
+    public ExceptionResponse(String title, String message) {
+        this.title = title;
         this.message = message;
     }
 
@@ -64,11 +67,11 @@ public class ExceptionResponse {
         this.title = title;
     }
 
-    public int getStatusCode() {
+    public Integer getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(int statusCode) {
+    public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
 

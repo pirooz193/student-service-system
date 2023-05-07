@@ -12,11 +12,17 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "title", nullable = false, length = 20)
     private String title;
+    @Column(name = "score", nullable = false, length = 10)
     private float score;
+    @Column(name = "content", nullable = false, length = 2000)
     private String content;
-    private LocalDateTime dateTime ;
+    @Column(name = "date_time", nullable = false)
+    private LocalDateTime dateTime;
+    @Column(name = "positive_interactions", length = 10)
     private int positiveInteractions;
+    @Column(name = "negative_interactions", length = 10)
     private int negativeInteractions;
 
     public Comment() {
