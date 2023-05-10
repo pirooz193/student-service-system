@@ -25,6 +25,10 @@ public class Comment {
     @Column(name = "negative_interactions", length = 10)
     private int negativeInteractions;
 
+    @ManyToOne
+    @JoinColumn(name = "user_key", nullable = false)
+    private User user;
+
     public Comment() {
     }
 
@@ -33,12 +37,12 @@ public class Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
-        return Float.compare(comment.score, score) == 0 && positiveInteractions == comment.positiveInteractions && negativeInteractions == comment.negativeInteractions && id.equals(comment.id) && title.equals(comment.title) && content.equals(comment.content) && dateTime.equals(comment.dateTime);
+        return Float.compare(comment.score, score) == 0 && positiveInteractions == comment.positiveInteractions && negativeInteractions == comment.negativeInteractions && Objects.equals(id, comment.id) && Objects.equals(title, comment.title) && Objects.equals(content, comment.content) && Objects.equals(dateTime, comment.dateTime) && Objects.equals(user, comment.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, score, content, dateTime, positiveInteractions, negativeInteractions);
+        return Objects.hash(id, title, score, content, dateTime, positiveInteractions, negativeInteractions, user);
     }
 
     @Override
@@ -51,7 +55,16 @@ public class Comment {
                 ", dateTime=" + dateTime +
                 ", positiveInteractions=" + positiveInteractions +
                 ", negativeInteractions=" + negativeInteractions +
+                ", user=" + user +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateTime() {
