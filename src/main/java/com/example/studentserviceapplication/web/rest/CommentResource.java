@@ -24,6 +24,12 @@ public class CommentResource {
         return ResponseEntity.created(new URI("/api/comment/save-comment")).body(savedComment);
     }
 
+    @PutMapping("/update-comment/{teacherId}")
+    public ResponseEntity<CommentDTO> updateComment(@PathVariable long teacherId, @RequestBody CommentDTO commentDTO) throws URISyntaxException {
+        CommentDTO savedComment = commentService.saveComment(teacherId, commentDTO);
+        return ResponseEntity.created(new URI("/api/comment/save-comment")).body(savedComment);
+    }
+
     @GetMapping("/{teacherId}")
     public ResponseEntity<Set<CommentDTO>> getRequiredTeacherComments(@PathVariable String teacherId) {
         Set<CommentDTO> comments = commentService.getRequiredTeacherComments(teacherId);

@@ -1,8 +1,10 @@
 package com.example.studentserviceapplication.service.impl;
 
+import com.example.studentserviceapplication.domain.Comment;
 import com.example.studentserviceapplication.repository.CommentRepository;
 import com.example.studentserviceapplication.service.CommentService;
 import com.example.studentserviceapplication.service.TeacherService;
+import com.example.studentserviceapplication.service.UserService;
 import com.example.studentserviceapplication.service.dto.CommentDTO;
 import com.example.studentserviceapplication.service.dto.TeacherDTO;
 import com.example.studentserviceapplication.service.mapper.CommentMapper;
@@ -15,10 +17,12 @@ import java.util.Set;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final UserService userService;
     private final CommentMapper commentMapper;
     private final TeacherService teacherService;
 
-    public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper, TeacherService teacherService) {
+    public CommentServiceImpl(CommentRepository commentRepository, UserService userService, CommentMapper commentMapper, TeacherService teacherService) {
+        this.userService = userService;
         this.teacherService = teacherService;
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
@@ -26,12 +30,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO saveComment(long teacherId, CommentDTO commentDTO) {
-        commentDTO.setDateTime(LocalDateTime.now());
+        final Comment comment = commentMapper.toEntity(commentDTO);
+        comment.setDateTime(LocalDateTime.now().plusHours(2).plusMinutes(30));
+        comment.setUser(userService.getUserByKey(commentDTO.getUser().getKey()));
+        CommentDTO finalComment = commentMapper.toDTO(comment);
         TeacherDTO teacher = teacherService.getTeacherById(teacherId);
-        teacher.getComments().add(commentDTO);
+        teacher.getComments().add(finalComment);
         teacher.setRate(teacher.getComments().stream().mapToDouble(CommentDTO::getScore).sum() / teacher.getComments().size());
         teacherService.save(teacher);
-        return commentDTO;
+        return finalComment;
 
     }
 

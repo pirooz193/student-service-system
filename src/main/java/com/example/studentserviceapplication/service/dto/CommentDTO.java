@@ -25,17 +25,20 @@ public class CommentDTO {
     @JsonProperty(namespace = "num_of_negative_interactions")
     private int negativeInteractions;
 
+    @JsonProperty("user")
+    private UserDto user;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommentDTO that = (CommentDTO) o;
-        return Float.compare(that.score, score) == 0 && positiveInteractions == that.positiveInteractions && negativeInteractions == that.negativeInteractions && id.equals(that.id) && title.equals(that.title) && content.equals(that.content) && dateTime.equals(that.dateTime);
+        return Float.compare(that.score, score) == 0 && positiveInteractions == that.positiveInteractions && negativeInteractions == that.negativeInteractions && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(dateTime, that.dateTime) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, score, content, dateTime, positiveInteractions, negativeInteractions);
+        return Objects.hash(id, title, score, content, dateTime, positiveInteractions, negativeInteractions, user);
     }
 
     @Override
@@ -48,7 +51,16 @@ public class CommentDTO {
                 ", dateTime=" + dateTime +
                 ", positiveInteractions=" + positiveInteractions +
                 ", negativeInteractions=" + negativeInteractions +
+                ", userDto=" + user + '\'' +
                 '}';
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto userKey) {
+        this.user = userKey;
     }
 
     public Long getId() {
