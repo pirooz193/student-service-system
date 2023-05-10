@@ -47,4 +47,11 @@ public class CommentServiceImpl implements CommentService {
         TeacherDTO teacher = teacherService.getTeacherById(Long.parseLong(teacherId));
         return teacher.getComments();
     }
+
+    @Override
+    public void deleteComment(long commentId, long teacherId) {
+        TeacherDTO teacher = teacherService.getTeacherById(teacherId);
+        teacher.getComments().removeIf(commentDTO -> commentDTO.getId().equals(commentId));
+        teacherService.save(teacher);
+    }
 }
