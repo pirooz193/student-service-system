@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO saveComment(long teacherId, CommentDTO commentDTO) {
         final Comment comment = commentMapper.toEntity(commentDTO);
-        comment.setDateTime(LocalDateTime.now().plusHours(2).plusMinutes(30));
+        comment.setDateTime(LocalDateTime.now().plusHours(3).plusMinutes(30));
         comment.setUser(userService.getUserByKey(commentDTO.getUser().getKey()));
         CommentDTO finalComment = commentMapper.toDTO(comment);
         TeacherDTO teacher = teacherService.getTeacherById(teacherId);
