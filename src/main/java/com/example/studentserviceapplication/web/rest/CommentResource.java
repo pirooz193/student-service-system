@@ -35,4 +35,10 @@ public class CommentResource {
         Set<CommentDTO> comments = commentService.getRequiredTeacherComments(teacherId);
         return ResponseEntity.ok().body(comments);
     }
+
+    @DeleteMapping("/{teacherId}/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable long commentId, @PathVariable long teacherId) {
+        commentService.deleteComment(commentId, teacherId);
+        return ResponseEntity.ok().build();
+    }
 }

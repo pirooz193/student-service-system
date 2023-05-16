@@ -8,4 +8,6 @@ public interface CommentService {
     CommentDTO saveComment(long teacherId, CommentDTO commentDTO);
 
     Set<CommentDTO> getRequiredTeacherComments(String teacherId);
+
+    void deleteComment(long commentId, long teacherId);
 }

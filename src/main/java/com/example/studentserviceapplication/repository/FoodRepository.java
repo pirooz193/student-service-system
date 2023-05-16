@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> getFoodByDate(LocalDate today);
+
+    List<Food> findAllByDateBetween(LocalDate from, LocalDate to);
 }
